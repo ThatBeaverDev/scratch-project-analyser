@@ -194,8 +194,8 @@ var libExports = requireLib();
 function scanSprite(sprite) {
     const result = { extensions: {}, blocks: {} };
     for (const blockID in sprite.blocks) {
+        const block = sprite.blocks[blockID];
         try {
-            const block = sprite.blocks[blockID];
             const { opcode } = block;
             const extensionName = opcode.split("_", 1)[0];
             if (!result.extensions[extensionName]) {
@@ -216,7 +216,7 @@ function scanSprite(sprite) {
             }
         }
         catch (e) {
-            console.warn(e, ", continuing.");
+            console.warn(block, e, ", continuing.");
         }
     }
     return result;
@@ -245,7 +245,6 @@ async function getProjectJson(data) {
 async function analyseProject(url) {
     const binaryContent = await getZipFileData(url);
     const projectJson = await getProjectJson(binaryContent);
-    console.debug(projectJson);
     const sprites = projectJson.targets;
     const results = [];
     for (const sprite of sprites) {
@@ -255,7 +254,7 @@ async function analyseProject(url) {
         blocks: {},
         extensions: {},
         totalBlocks: 0,
-        extensionNames: projectJson.extensions
+        extensionNames: []
     };
     const { blocks, extensions } = finalResult;
     for (const result of results) {
@@ -265,6 +264,7 @@ async function analyseProject(url) {
                     result.extensions[extensionName].amount;
             }
             else {
+                finalResult.extensionNames.push(extensionName);
                 extensions[extensionName] = {
                     amount: Number(result.extensions[extensionName].amount)
                 };

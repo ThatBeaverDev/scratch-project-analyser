@@ -9,8 +9,8 @@ export function scanSprite(sprite: ScratchSprite) {
 	const result: ScanSpriteResults = { extensions: {}, blocks: {} };
 
 	for (const blockID in sprite.blocks) {
+		const block = sprite.blocks[blockID];
 		try {
-			const block = sprite.blocks[blockID];
 			const { opcode } = block;
 
 			const extensionName = opcode.split("_", 1)[0];
@@ -31,7 +31,7 @@ export function scanSprite(sprite: ScratchSprite) {
 				result.blocks[opcode].amount += 1;
 			}
 		} catch (e) {
-			console.warn(e, ", continuing.");
+			console.warn(block, e, ", continuing.");
 		}
 	}
 

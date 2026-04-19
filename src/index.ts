@@ -32,7 +32,6 @@ export default async function analyseProject(url: string) {
 
 	const projectJson = await getProjectJson(binaryContent);
 
-	console.debug(projectJson);
 	const sprites = projectJson.targets;
 	const results: ScanSpriteResults[] = [];
 
@@ -48,7 +47,7 @@ export default async function analyseProject(url: string) {
 		extensions: {},
 
 		totalBlocks: 0,
-		extensionNames: projectJson.extensions
+		extensionNames: []
 	};
 	const { blocks, extensions } = finalResult;
 
@@ -58,6 +57,7 @@ export default async function analyseProject(url: string) {
 				extensions[extensionName].amount +=
 					result.extensions[extensionName].amount;
 			} else {
+				finalResult.extensionNames.push(extensionName);
 				extensions[extensionName] = {
 					amount: Number(result.extensions[extensionName].amount)
 				};
