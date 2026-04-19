@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"rootDir": "./src",
+		"outDir": "./build",
+
+		"allowJs": true,
+		"strict": true,
+
+		"target": "esnext",
+		"lib": ["esnext", "dom"],
+
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"types": [],
+
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+
+		"incremental": true,
+		"tsBuildInfoFile": "./build/.tsbuildinfo"
+	},
+	"include": ["./src", "./src/global.d.ts"],
+	"exclude": ["./src/**/*.test.ts"]
+}

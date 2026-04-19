@@ -1,0 +1,17 @@
+{
+	"type": "module",
+	"scripts": {
+		"build": "sh ./build.sh"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^29.0.2",
+		"@rollup/plugin-node-resolve": "^16.0.3",
+		"@types/node": "^25.6.0",
+		"chart.js": "^4.5.1",
+		"jszip": "^3.10.1",
+		"jszip-utils": "^0.1.0"
+	},
+	"dependencies": {
+		"@progress/pako-esm": "^1.0.1"
+	}
+}
