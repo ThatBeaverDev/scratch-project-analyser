@@ -194,24 +194,29 @@ var libExports = requireLib();
 function scanSprite(sprite) {
     const result = { extensions: {}, blocks: {} };
     for (const blockID in sprite.blocks) {
-        const block = sprite.blocks[blockID];
-        const { opcode } = block;
-        const extensionName = opcode.split("_", 1)[0];
-        if (!result.extensions[extensionName]) {
-            result.extensions[extensionName] = {
-                amount: 1
-            };
+        try {
+            const block = sprite.blocks[blockID];
+            const { opcode } = block;
+            const extensionName = opcode.split("_", 1)[0];
+            if (!result.extensions[extensionName]) {
+                result.extensions[extensionName] = {
+                    amount: 1
+                };
+            }
+            else {
+                result.extensions[extensionName].amount += 1;
+            }
+            if (!result.blocks[opcode]) {
+                result.blocks[opcode] = {
+                    amount: 1
+                };
+            }
+            else {
+                result.blocks[opcode].amount += 1;
+            }
         }
-        else {
-            result.extensions[extensionName].amount += 1;
-        }
-        if (!result.blocks[opcode]) {
-            result.blocks[opcode] = {
-                amount: 1
-            };
-        }
-        else {
-            result.blocks[opcode].amount += 1;
+        catch (e) {
+            console.warn(e, ", continuing.");
         }
     }
     return result;
@@ -279,7 +284,6 @@ async function analyseProject(url) {
     }
     return finalResult;
 }
-analyseProject("/old/index.sb3");
 
 /*!
  * @kurkle/color v0.3.4
@@ -15286,8 +15290,7 @@ input.addEventListener("change", async (e) => {
                     title: {
                         display: true,
                         text: file.name,
-                        position: "top",
-                        fullSize: true
+                        position: "top"
                     }
                 }
             }
