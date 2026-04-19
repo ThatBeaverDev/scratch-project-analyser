@@ -79,5 +79,3 @@ export default async function analyseProject(url: string) {
 
 	return finalResult;
 }
-
-analyseProject("/old/index.sb3");
